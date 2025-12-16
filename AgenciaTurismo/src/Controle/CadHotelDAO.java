@@ -23,11 +23,13 @@ public class CadHotelDAO {
     
     public void CadastrarHotel(CadHotel h) {
         try{
-            String sql = "INSERT INTO hoteis (nome, cidade, preco) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO hoteis (nome, cidade, preco, descricao, estado) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setString(1, h.getNome());
             stmt.setString(2, h.getCidade());
             stmt.setDouble(3, h.getPreco());
+            stmt.setString(4, h.getDescricao());
+            stmt.setString(5, h.getEstado());
             stmt.execute();
             stmt.close();
             
@@ -52,6 +54,8 @@ public class CadHotelDAO {
                 h.setNome(rs.getString("nome"));
                 h.setCidade(rs.getString("cidade"));
                 h.setPreco(rs.getDouble("preco"));
+                h.setDescricao(rs.getString("descricao"));
+                h.setEstado(rs.getString("estado"));
                 lista.add(h);
             }
         } catch (SQLException erro) {

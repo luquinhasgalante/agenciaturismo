@@ -13,13 +13,33 @@ public class CadHotel {
     private String nome;
     private String cidade;
     private double preco;
+    private String estado;
+    private String descricao;
     
     public CadHotel(){}
     
-    public CadHotel(String nome, String cidade, double preco) {
+    public CadHotel(String nome, String cidade, double preco, String estado, String descricao) {
         this.nome = nome;
         this.cidade = cidade;
         this.preco = preco;
+        this.estado = estado;
+        this.descricao = descricao;
+    }
+    
+    public String getEstado() {
+        return this.estado;
+    }
+    
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    public String getDescricao() {
+        return this.descricao;
+    }
+    
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     /**

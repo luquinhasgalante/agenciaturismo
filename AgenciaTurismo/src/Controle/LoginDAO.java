@@ -18,7 +18,7 @@ public class LoginDAO {
     public ResultSet autenticacaoUsuario(Login objusuariomodelo) {
         conexao = new ConexaoDAO ().conectaBancoDados();
     try{
-        String sql = "select * from usuarios where usuario = ? and senha = ?";
+        String sql = "select * from hospedes where email = ? and senha = ?";
         PreparedStatement pstm = conexao.prepareStatement(sql);
         pstm.setString(1,objusuariomodelo.getUsuario());
         pstm.setString(2,objusuariomodelo.getSenha());

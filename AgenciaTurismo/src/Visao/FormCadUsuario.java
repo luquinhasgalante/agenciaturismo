@@ -2,9 +2,12 @@ package Visao;
 
 import Controle.CadUsuarioDAO;
 import Modelo.CadUsuario;
+import com.formdev.flatlaf.FlatDarkLaf;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -212,6 +215,11 @@ public class FormCadUsuario extends javax.swing.JFrame {
     }
 
     public static void main(String[] args) {
+            try{
+             UIManager.setLookAndFeel(new FlatDarkLaf());
+            }catch(UnsupportedLookAndFeelException e) {
+                e.printStackTrace();
+            }
         java.awt.EventQueue.invokeLater(() -> new FormCadUsuario().setVisible(true));
     }
 

@@ -20,10 +20,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
-    public TelaPrincipal(String usuario) {
+    public TelaPrincipal(String nome) {
         initComponents();
         this.setLocationRelativeTo(null);
-        jLabel2.setText("Entrou como: " + usuario);
+        jLabel2.setText("Entrou como: " + nome);
         setLayout(new FlowLayout());
         PainelHoteis.setLayout(new GridLayout(hotelDAO.listarHoteis().size() / 3, 3, 5, 5));
         mostrarHoteis();
