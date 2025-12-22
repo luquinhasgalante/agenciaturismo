@@ -9,6 +9,9 @@ import Controle.CadHotelDAO;
 import Modelo.CadHotel;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -20,14 +23,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
-    public TelaPrincipal(String nome) {
+    public TelaPrincipal(String usuario) {
+        
         initComponents();
         this.setLocationRelativeTo(null);
-        jLabel2.setText("Entrou como: " + nome);
-        setLayout(new FlowLayout());
-        PainelHoteis.setLayout(new GridLayout(hotelDAO.listarHoteis().size() / 3, 3, 5, 5));
+        
+        jLabel2.setText("Entrou como: " + usuario);
+
+        PainelHoteis.setLayout(new GridLayout(0, 2, 10, 10));
+
         mostrarHoteis();
-        setVisible(true);
+
+        revalidate();
+        repaint();
     }
     
     private void mostrarHoteis() {
@@ -46,24 +54,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        PainelHoteis = new javax.swing.JPanel();
         btnTelaLogin = new javax.swing.JButton();
+        scroll = new javax.swing.JScrollPane();
+        PainelHoteis = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
 
         jLabel2.setText("Entrou como: ");
-
-        javax.swing.GroupLayout PainelHoteisLayout = new javax.swing.GroupLayout(PainelHoteis);
-        PainelHoteis.setLayout(PainelHoteisLayout);
-        PainelHoteisLayout.setHorizontalGroup(
-            PainelHoteisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 485, Short.MAX_VALUE)
-        );
-        PainelHoteisLayout.setVerticalGroup(
-            PainelHoteisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 299, Short.MAX_VALUE)
-        );
 
         btnTelaLogin.setText("Voltar para Login");
         btnTelaLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -71,6 +69,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 btnTelaLoginActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout PainelHoteisLayout = new javax.swing.GroupLayout(PainelHoteis);
+        PainelHoteis.setLayout(PainelHoteisLayout);
+        PainelHoteisLayout.setHorizontalGroup(
+            PainelHoteisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 754, Short.MAX_VALUE)
+        );
+        PainelHoteisLayout.setVerticalGroup(
+            PainelHoteisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 320, Short.MAX_VALUE)
+        );
+
+        scroll.setViewportView(PainelHoteis);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,18 +96,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(PainelHoteis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(391, Short.MAX_VALUE))
+                        .addGap(120, 120, 120)
+                        .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(PainelHoteis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                 .addComponent(btnTelaLogin)
                 .addGap(40, 40, 40))
         );
@@ -116,6 +127,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel PainelHoteis;
     private javax.swing.JButton btnTelaLogin;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane scroll;
     // End of variables declaration//GEN-END:variables
     
     

@@ -19,9 +19,27 @@ public class CadHospedeDAO {
         conexao = new ConexaoDAO().conectaBancoDados();
     }
     
+    private void criarTable() {
+        try {
+            String sql = "CREATE TABLE hospedes ("
+                    + "id int primary key not null auto_increment,"
+                    + "nome varchar(60),"
+                    + "email varchar(60),"
+                    + "estado varchar(60),"
+                    + "senha varchar(60)"
+                    + ");";
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+        } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível criar tabela: " + e.getMessage());
+        }
+    }
+    
     public void cadastrarHospede(CadHospede h) {
         
         try{
+            criarTable();
             String sql = "INSERT INTO hospedes (nome, email, estado, senha) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setString(1, h.getNome());
@@ -39,3 +57,4 @@ public class CadHospedeDAO {
     
     
 }
+

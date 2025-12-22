@@ -8,6 +8,8 @@ package Visao;
 import Controle.LoginDAO;
 import Modelo.Login;
 import com.formdev.flatlaf.FlatDarkLaf;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -51,7 +53,7 @@ public class FormLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTextField1.setEditable(false);
-        jTextField1.setText("Usuario");
+        jTextField1.setText("E-mail:");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -68,7 +70,7 @@ public class FormLogin extends javax.swing.JFrame {
 
         jTextField6.setEditable(false);
         jTextField6.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField6.setText("                              Acesso ao Sistema");
+        jTextField6.setText("                  Bem-Vindo(a) à agência de turismo!");
         jTextField6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         BTLogin.setText("Login");

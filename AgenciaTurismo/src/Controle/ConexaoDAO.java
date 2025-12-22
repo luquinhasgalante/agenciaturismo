@@ -16,7 +16,7 @@ public class ConexaoDAO {
         Connection conexao = null;
         
         String driveJBC = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/dbviagens";
+        String url = "jdbc:mysql://localhost:3306/bdturismo";
         String user = "root";
         String senha = "";
         

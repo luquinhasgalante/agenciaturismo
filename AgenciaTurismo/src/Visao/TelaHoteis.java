@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -16,10 +18,11 @@ import javax.swing.JOptionPane;
  *
  * @author Pichau
  */
-public class TelaHoteis extends javax.swing.JPanel {
+public class TelaHoteis extends javax.swing.JPanel implements MouseListener{
 
     private CadHotel h;
     private Image fundo;
+    private boolean mouse = false;
     /**
      * Creates new form TelaHoteis
      */
@@ -27,133 +30,139 @@ public class TelaHoteis extends javax.swing.JPanel {
         this.h = h;
         initComponents();
         escolherFundo();
+        this.addMouseListener(this);
         lblNome.setText(h.getNome());
         lblCidade.setText(h.getCidade());
         lblPreco.setText("" + h.getPreco());
     }
     
     public void escolherFundo() {
-        String estado = this.h.getEstado();
-        try{
-        switch (estado) {
-            case "Acre":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/acre.jpg")).getImage();
-                break;
-
-            case "Alagoas":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/alagoas.jpg")).getImage();
-                break;
-
-            case "Amapá":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/amapa.jpg")).getImage();
-                break;
-
-            case "Amazonas":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/amazonas.jpg")).getImage();
-                break;
-
-            case "Bahia":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/bahia.jpg")).getImage();
-                break;
-
-            case "Ceará":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/ceara.jpg")).getImage();
-                break;
-
-            case "Distrito Federal":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/df.jpg")).getImage();
-                break;
-
-            case "Espírito Santo":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/espiritosanto.jpg")).getImage();
-                break;
-
-            case "Goiás":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/goias.jpg")).getImage();
-                break;
-
-            case "Maranhão":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/maranhao.jpg")).getImage();
-                break;
-
-            case "Mato Grosso":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/matogrosso.jpg")).getImage();
-                break;
-
-            case "Mato Grosso do Sul":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/matogrossodosul.jpg")).getImage();
-                break;
-
-            case "Minas Gerais":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/minasgerais.jpg")).getImage();
-                break;
-
-            case "Pará":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/para.jpg")).getImage();
-                break;
-
-            case "Paraíba":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/paraiba.jpg")).getImage();
-                break;
-
-            case "Paraná":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/parana.jpg")).getImage();
-                break;
-
-            case "Pernambuco":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/pernambuco.jpg")).getImage();
-                break;
-
-            case "Piauí":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/piaui.jpg")).getImage();
-                break;
-
-            case "Rio de Janeiro":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/riodejaneiro.jpg")).getImage();
-                break;
-
-            case "Rio Grande do Norte":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/riograndedonorte.jpg")).getImage();
-                break;
-
-            case "Rio Grande do Sul":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/riograndedosul.jpg")).getImage();
-                break;
-
-            case "Rondônia":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/rondonia.jpg")).getImage();
-                break;
-
-            case "Roraima":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/roraima.jpg")).getImage();
-                break;
-
-            case "Santa Catarina":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/santacatarina.jpeg")).getImage();
-                break;
-
-            case "São Paulo":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/saopaulo.jpg")).getImage();
-                break;
-
-            case "Sergipe":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/sergipe.jpg")).getImage();
-                break;
-
-            case "Tocantins":
-                this.fundo = new ImageIcon(getClass().getResource("/Imagens/tocantins.jpg")).getImage();
-                break;
-
-                case "Selecione":
-                    JOptionPane.showMessageDialog(null, "Nenhum estado selecionado.");
+        if(h.getCaminhoImagem() == null) {
+            String estado = this.h.getEstado();
+            
+            try{
+            switch (estado) {
+                case "Acre":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/acre.jpg")).getImage();
                     break;
 
-                default:
-                    JOptionPane.showMessageDialog(null, "Estado não encontrado.");
-        }
-        }
-        catch(Exception e) {
-            this.fundo = new ImageIcon(getClass().getResource("/Imagens/Palmeiras.png")).getImage();
+                case "Alagoas":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/alagoas.jpg")).getImage();
+                    break;
+
+                case "Amapá":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/amapa.jpg")).getImage();
+                    break;
+
+                case "Amazonas":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/amazonas.jpg")).getImage();
+                    break;
+
+                case "Bahia":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/bahia.jpg")).getImage();
+                    break;
+
+                case "Ceará":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/ceara.jpg")).getImage();
+                    break;
+
+                case "Distrito Federal":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/df.jpg")).getImage();
+                    break;
+
+                case "Espírito Santo":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/espiritosanto.jpg")).getImage();
+                    break;
+
+                case "Goiás":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/goias.jpg")).getImage();
+                    break;
+
+                case "Maranhão":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/maranhao.jpg")).getImage();
+                    break;
+
+                case "Mato Grosso":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/matogrosso.jpg")).getImage();
+                    break;
+
+                case "Mato Grosso do Sul":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/matogrossodosul.jpg")).getImage();
+                    break;
+
+                case "Minas Gerais":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/minasgerais.jpg")).getImage();
+                    break;
+
+                case "Pará":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/para.jpg")).getImage();
+                    break;
+
+                case "Paraíba":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/paraiba.jpg")).getImage();
+                    break;
+
+                case "Paraná":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/parana.jpg")).getImage();
+                    break;
+
+                case "Pernambuco":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/pernambuco.jpg")).getImage();
+                    break;
+
+                case "Piauí":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/piaui.jpg")).getImage();
+                    break;
+
+                case "Rio de Janeiro":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/riodejaneiro.jpg")).getImage();
+                    break;
+
+                case "Rio Grande do Norte":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/riograndedonorte.jpg")).getImage();
+                    break;
+
+                case "Rio Grande do Sul":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/riograndedosul.jpg")).getImage();
+                    break;
+
+                case "Rondônia":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/rondonia.jpg")).getImage();
+                    break;
+
+                case "Roraima":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/roraima.jpg")).getImage();
+                    break;
+
+                case "Santa Catarina":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/santacatarina.jpeg")).getImage();
+                    break;
+
+                case "São Paulo":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/saopaulo.jpg")).getImage();
+                    break;
+
+                case "Sergipe":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/sergipe.jpg")).getImage();
+                    break;
+
+                case "Tocantins":
+                    this.fundo = new ImageIcon(getClass().getResource("/Imagens/tocantins.jpg")).getImage();
+                    break;
+
+                    case "Selecione":
+                        JOptionPane.showMessageDialog(null, "Nenhum estado selecionado.");
+                        break;
+
+                    default:
+                        JOptionPane.showMessageDialog(null, "Estado não encontrado.");
+            }
+            }
+            catch(Exception e) {
+                this.fundo = new ImageIcon(getClass().getResource("/Imagens/Palmeiras.png")).getImage();
+            }
+        } else {
+                this.fundo = new ImageIcon(h.getCaminhoImagem()).getImage();
         }
     }
     
@@ -164,6 +173,13 @@ public class TelaHoteis extends javax.swing.JPanel {
         g.setColor(Color.WHITE);
         g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
         g.drawString(lblPreco.getText(), lblPreco.getX(), lblPreco.getY());
+        g.setColor(Color.black);
+        g.fillRect(getWidth() -175, 0, 175, getHeight());
+        
+        if(mouse) {
+            g.setColor(Color.WHITE);
+            g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+        }
     }
 
     /**
@@ -187,11 +203,16 @@ public class TelaHoteis extends javax.swing.JPanel {
 
         jLabel1.setText("Cidade:");
 
+        lblCidade.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
         jLabel2.setText("Nome do hotel:");
+
+        lblNome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         jLabel3.setText("Preço por noite:");
 
-        lblPreco.setForeground(new java.awt.Color(255, 0, 0));
+        lblPreco.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblPreco.setForeground(new java.awt.Color(0, 204, 0));
 
         btnAlugar.setText("Reservar");
         btnAlugar.addActionListener(this::btnAlugarActionPerformed);
@@ -250,4 +271,31 @@ public class TelaHoteis extends javax.swing.JPanel {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblPreco;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        mouse = true;
+        repaint();
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        mouse = false;
+        repaint();
+    }
 }

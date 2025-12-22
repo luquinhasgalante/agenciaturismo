@@ -15,15 +15,25 @@ public class CadHotel {
     private double preco;
     private String estado;
     private String descricao;
+    private String caminhoImagem;
     
     public CadHotel(){}
     
-    public CadHotel(String nome, String cidade, double preco, String estado, String descricao) {
+    public CadHotel(String nome, String cidade, double preco, String estado, String descricao, String caminhoImagem) {
         this.nome = nome;
         this.cidade = cidade;
         this.preco = preco;
         this.estado = estado;
         this.descricao = descricao;
+        this.caminhoImagem = caminhoImagem;
+    }
+    
+    public String getCaminhoImagem() {
+        return caminhoImagem;
+    }
+    
+    public void setCaminhoImagem(String caminho) {
+        this.caminhoImagem = caminho;
     }
     
     public String getEstado() {

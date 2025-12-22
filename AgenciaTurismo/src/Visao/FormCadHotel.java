@@ -7,9 +7,21 @@ package Visao;
 import Controle.CadHotelDAO;
 import Modelo.CadHotel;
 import com.formdev.flatlaf.FlatDarkLaf;
+import java.awt.Image;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.UUID;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -18,6 +30,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class FormCadHotel extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormCadHotel.class.getName());
+    private CadHotel h = new CadHotel();
 
     CadHotelDAO cadHotelDAO = new CadHotelDAO();
     /**
@@ -82,6 +95,8 @@ public class FormCadHotel extends javax.swing.JFrame {
         txtDescricao = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        btnImagem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,13 +123,18 @@ public class FormCadHotel extends javax.swing.JFrame {
         btnTelaLogin.setText("Ir para tela de login");
         btnTelaLogin.addActionListener(this::btnTelaLoginActionPerformed);
 
-        jLabel5.setText("Descrição:");
+        jLabel5.setText("Descrição (opcional):");
 
         txtDescricao.addActionListener(this::txtDescricaoActionPerformed);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel6.setText("Estado:");
+
+        jLabel7.setText("Selecionar imagem (opcional):");
+
+        btnImagem.setText("Imagem");
+        btnImagem.addActionListener(this::btnImagemActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,14 +147,17 @@ public class FormCadHotel extends javax.swing.JFrame {
                             .addGap(258, 258, 258)
                             .addComponent(jLabel1))
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(40, 40, 40)
-                            .addComponent(jLabel2)
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -143,22 +166,24 @@ public class FormCadHotel extends javax.swing.JFrame {
                                 .addComponent(btnTelaLogin)
                                 .addGap(73, 73, 73)
                                 .addComponent(btnLimpar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jLabel6)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                        .addGap(4, 4, 4)))
-                .addContainerGap(170, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+                                    .addComponent(txtDescricao)
+                                    .addComponent(btnCadastrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                .addGap(170, 170, 170))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,13 +202,15 @@ public class FormCadHotel extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel7)
+                    .addComponent(btnImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -201,6 +228,7 @@ public class FormCadHotel extends javax.swing.JFrame {
         txtNome.setText("");
         txtPreco.setText("");
         txtDescricao.setText("");
+        jComboBox1.setSelectedIndex(0);
     }
     
     private boolean validarPreco() {
@@ -223,7 +251,6 @@ public class FormCadHotel extends javax.swing.JFrame {
             if(!validarPreco()) {
                 JOptionPane.showMessageDialog(null, "Digite apenas números em 'Preco por noite'");
             } else{
-            CadHotel h = new CadHotel();
             h.setNome(txtNome.getText());
             h.setCidade(txtCidade.getText());
             h.setPreco(Double.parseDouble(txtPreco.getText()));
@@ -238,6 +265,45 @@ public class FormCadHotel extends javax.swing.JFrame {
         }
     }
     
+    private void salvarImagem() {
+        try {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setDialogTitle("Selecione sua imagem");
+            chooser.setAcceptAllFileFilterUsed(false);
+
+            FileNameExtensionFilter filtro =
+                    new FileNameExtensionFilter("Apenas imagens", "jpg", "jpeg", "png");
+            chooser.setFileFilter(filtro);
+
+            int resultado = chooser.showOpenDialog(null);
+
+            if (resultado == JFileChooser.APPROVE_OPTION) {
+                File imagem = chooser.getSelectedFile();
+
+                String extensao = imagem.getName()
+                        .substring(imagem.getName().lastIndexOf("."));
+                String nomeUnico = UUID.randomUUID().toString() + extensao;
+
+                Path destino = Paths.get("C:/Uploads/imagens", nomeUnico);
+                Files.createDirectories(destino.getParent());
+                Files.copy(imagem.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
+
+                String caminho = destino.toString();
+
+                JOptionPane.showMessageDialog(null, "Imagem salva com sucesso!");
+                btnImagem.setEnabled(false);
+                
+                h.setCaminhoImagem(caminho);
+                
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Operação cancelada.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar imagem.");
+            e.printStackTrace();
+        }
+    }
     
     
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
@@ -273,6 +339,11 @@ public class FormCadHotel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescricaoActionPerformed
 
+    private void btnImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagemActionPerformed
+        // TODO add your handling code here:
+        salvarImagem();
+    }//GEN-LAST:event_btnImagemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -289,6 +360,7 @@ public class FormCadHotel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnImagem;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnTelaLogin;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -298,6 +370,7 @@ public class FormCadHotel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtNome;

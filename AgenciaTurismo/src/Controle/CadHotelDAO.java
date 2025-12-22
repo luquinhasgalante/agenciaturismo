@@ -21,15 +21,39 @@ public class CadHotelDAO {
         conexao = new ConexaoDAO().conectaBancoDados();
     }
     
+    private void criarTable() {
+        try{
+        String sql = "CREATE TABLE IF NOT EXISTS hoteis ( "
+                + "id int primary key not null auto_increment,"
+                + "nome varchar(60),"
+                + "cidade varchar(60),"
+                + "preco varchar(60),"
+                + "descricao varchar(250),"
+                + "estado varchar(60),"
+                + "imagem varchar(255)"
+                + ");";
+        
+        PreparedStatement stmt = conexao.prepareStatement(sql);
+        stmt.execute();
+        stmt.close();
+        
+        } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível criar tabela: " + e.getMessage());
+        }
+    }
+    
     public void CadastrarHotel(CadHotel h) {
         try{
-            String sql = "INSERT INTO hoteis (nome, cidade, preco, descricao, estado) VALUES (?, ?, ?, ?, ?)";
+            criarTable();
+            
+            String sql = "INSERT INTO hoteis (nome, cidade, preco, descricao, estado, imagem) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setString(1, h.getNome());
             stmt.setString(2, h.getCidade());
             stmt.setDouble(3, h.getPreco());
             stmt.setString(4, h.getDescricao());
             stmt.setString(5, h.getEstado());
+            stmt.setString(6, h.getCaminhoImagem());
             stmt.execute();
             stmt.close();
             
@@ -56,6 +80,7 @@ public class CadHotelDAO {
                 h.setPreco(rs.getDouble("preco"));
                 h.setDescricao(rs.getString("descricao"));
                 h.setEstado(rs.getString("estado"));
+                h.setCaminhoImagem(rs.getString("imagem"));
                 lista.add(h);
             }
         } catch (SQLException erro) {
