@@ -284,7 +284,7 @@ public class FormCadHotel extends javax.swing.JFrame {
                         .substring(imagem.getName().lastIndexOf("."));
                 String nomeUnico = UUID.randomUUID().toString() + extensao;
 
-                Path destino = Paths.get("C:/Uploads/imagens", nomeUnico);
+                Path destino = Paths.get("src/Imagens", nomeUnico);
                 Files.createDirectories(destino.getParent());
                 Files.copy(imagem.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
 
