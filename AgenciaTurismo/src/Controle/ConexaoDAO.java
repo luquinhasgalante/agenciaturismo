@@ -32,7 +32,7 @@ public class ConexaoDAO {
         conexao = DriverManager.getConnection(url,user,senha);
         
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Falha na Conexão");
+        JOptionPane.showMessageDialog(null, "Falha na Conexão:" + e.getMessage());
     }
     return conexao;
     }

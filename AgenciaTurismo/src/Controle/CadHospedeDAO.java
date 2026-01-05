@@ -21,7 +21,7 @@ public class CadHospedeDAO {
     
     private void criarTable() {
         try {
-            String sql = "CREATE TABLE hospedes ("
+            String sql = "CREATE TABLE IF NOT EXISTS hospedes ("
                     + "id int primary key not null auto_increment,"
                     + "nome varchar(60),"
                     + "email varchar(60),"
