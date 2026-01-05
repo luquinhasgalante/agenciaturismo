@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Pichau
+ * @author Lucas
  */
 public class CadHotelDAO {
     Connection conexao;
@@ -190,3 +190,4 @@ public class CadHotelDAO {
         this.precoMax = precoMax;
     }
 }
+
